@@ -1,0 +1,11 @@
+# *function_word_vector_killer*
+In order to optimize and speed up work on word vectors - or rather files containing them - *function_word_vector_killer* reduces the size of a word vector file by deleting common function words. Therefore, a word vector file is read and checked for function words saved in files in the directory "[data](data)": if the "word" of a word vector matches such a function word the whole word vector won’t be written to the output file created by the program, whereas those word vectors that represent none of the function words will be written to it.  
+The function words are categorized by language (English and German are available in this repository) and by part of speech. Because of the fact that there is no common standard in linguistics how to categorize words, the categories might differ from the standard you are used to (furthermore, many words are ambiguous and have to be classified as belonging to more than one category). The categories provided are adpositions, articles (and the like), conjunctions and subjunctions, interjections, interrogative words, numerals, particles, personal pronouns and possessives, temporal words, and miscellaneous words. You can easily add or remove words for they are saved in txt-files (always separated from each other by a single whitespace).  
+After starting the program you will be asked whether you want to delete English or German function words. Furthermore, you do not need to delete all of the function words that are saved in the data: The program asks which of the categories you want to remove from your word vector file. If you want to remove all interjections, interrogative words, and particles, you can select only them and leave all of the other function words in your file (or rather the newly created output file). The function words you have selected will then be stored in a binary tree and finally the input file will be checked for them.
+
+## Special notes:
+* The input file should only contain word vectors with each line representing one single word vector with all values separated by a single whitespace and the first "value" being the word.
+* Additional languages and function words are always welcome!
+
+## License
+The work contained in this package is licensed under the Apache License, Version 2.0 (see the file "[LICENSE](LICENSE)").
