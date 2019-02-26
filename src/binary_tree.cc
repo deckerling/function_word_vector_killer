@@ -110,7 +110,7 @@ bool BinaryTree::RemoveWord(const std::string &word_to_remove) {
   struct WordItem *current_word_item = root_;
   while (true) {
     if (word_to_remove.compare(current_word_item->word) < 0) {
-      if (current_word_item->left == NULL) // if "word_to_remove" could'nt be found in the binary tree
+      if (current_word_item->left == NULL) // if "word_to_remove" couldn't be found in the binary tree
         return false;
       else if (current_word_item->left->word == word_to_remove) {
         RemoveWordItem(current_word_item, current_word_item->left, -1);
@@ -118,7 +118,7 @@ bool BinaryTree::RemoveWord(const std::string &word_to_remove) {
       } else
         current_word_item = current_word_item->left;
     } else {
-      if (current_word_item->right == NULL) // if "word_to_remove" could'nt be found in the binary tree
+      if (current_word_item->right == NULL) // if "word_to_remove" couldn't be found in the binary tree
         return false;
       else if (current_word_item->right->word == word_to_remove) {
         RemoveWordItem(current_word_item, current_word_item->right, 1);
