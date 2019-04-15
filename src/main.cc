@@ -23,12 +23,12 @@
 std::string SetToLowerCase(std::string string) {
 // Sets every character of a string to lower case and returns the string as a
 // whole.
-  for (unsigned i = 0; i < string.length(); ++i)
-    string[i] = tolower(string[i]);
+  for (auto& character : string)
+    character = tolower(character);
   return string;
 }
 
-bool CheckFile(const std::string &file) {
+bool FileIsValid(const std::string& file) {
 // Checks if "file" is readable and returns "false" if not and "true" otherwise.
   const std::ifstream file_stream(file);
   if (!file_stream.is_open()) {
@@ -41,9 +41,9 @@ bool CheckFile(const std::string &file) {
   return true;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   if (argc == 2 || argc == 3) {
-    if (!CheckFile(argv[1])) { // checks if the input file is readable
+    if (!FileIsValid(argv[1])) { // checks if the input file is readable
       std::cout << "Program terminated.";
       return -1;
     }
@@ -71,12 +71,12 @@ int main(int argc, char *argv[]) {
       std::cout << questions[i];
       std::cin >> answer;
       if (std::regex_match(SetToLowerCase(answer), (std::regex) "a(ll)?")) {
-        fill(std::begin(words_to_remove), std::end(words_to_remove), true);
+        std::fill(words_to_remove.begin(), words_to_remove.end(), true);
         break;
       }
       words_to_remove[i] = (std::regex_match(SetToLowerCase(answer), (std::regex) "y(es)?"))? true : false;
     }
-    if (none_of(std::begin(words_to_remove), std::end(words_to_remove), IsTrue)) // terminates program if no "words_to_remove" were selected
+    if (std::find(words_to_remove.begin(), words_to_remove.end(), true) == words_to_remove.end()) // terminates program if no "words_to_remove" were selected
       std::cout << "You didn't select words to remove - so there is nothing to do!\n";
     else
       Killer function_word_killer(argv[1], output_file, words_to_remove, language_index); // starts the actual "function word killer"
