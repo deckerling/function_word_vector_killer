@@ -20,7 +20,7 @@
 #ifndef FUNCTIONS_WORD_VECTOR_KILLER_H_SRC_FUNCTIONS_WORD_VECTOR_KILLER_H_
 #define FUNCTIONS_WORD_VECTOR_KILLER_H_SRC_FUNCTIONS_WORD_VECTOR_KILLER_H_
 
-bool CheckFile(const std::string &file);
+bool FileIsValid(const std::string& file);
 std::string SetToLowerCase(std::string string);
 
 class Killer {
@@ -29,7 +29,7 @@ class Killer {
 // words to remove are contained in the "input_file" and if so they and their
 // vectors won't be written to the "output_file".
  public:
-  Killer(const std::string &input_file, const std::string &output_file, const std::vector<bool> &words_to_remove, const int language);
+  Killer(const std::string& input_file, const std::string& output_file, const std::vector<bool>& words_to_remove, const int language);
   ~Killer();
 
  private:
@@ -38,8 +38,8 @@ class Killer {
   const int language_;
   void SelectAndRemoveWords();
   std::vector<std::string> LoadFunctionWords(const int index);
-  std::vector<std::string> GetWordsFromALine(const std::string &line);
-  bool IsNumber(const std::string &word);
+  std::vector<std::string> GetWordsFromALine(const std::string& line);
+  bool IsNumber(const std::string& word);
 };
 
 class BinaryTree {
@@ -47,23 +47,19 @@ class BinaryTree {
  public:
   BinaryTree();
   ~BinaryTree();
-  void AddWord(const std::string &word_to_add);
-  bool RemoveWord(const std::string &word_to_remove);
+  void AddWord(const std::string& word_to_add);
+  bool RemoveWord(const std::string& word_to_remove);
 
  private:
   struct WordItem {
     std::string word = "DEFAULT";
-    struct WordItem *left = NULL;
-    struct WordItem *right = NULL;
+    struct WordItem* left = NULL;
+    struct WordItem* right = NULL;
   };
-  struct WordItem *root_;
-  void DestroyTree(struct WordItem *current_word_item);
-  void RemoveWordItem(struct WordItem *previous_word_item, struct WordItem *word_item_to_delete, const int side);
-  void RemoveWordItemThatHasTwoChildren(struct WordItem *word_item_to_delete);
+  struct WordItem* root_;
+  void DestroyTree(struct WordItem* current_word_item);
+  void RemoveWordItem(struct WordItem* previous_word_item, struct WordItem* word_item_to_delete, const int side);
+  void RemoveWordItemThatHasTwoChildren(struct WordItem* word_item_to_delete);
 };
-
-inline bool IsTrue(const bool is_true) {
-  return is_true;
-}
 
 #endif // FUNCTIONS_WORD_VECTOR_KILLER_H_SRC_FUNCTIONS_WORD_VECTOR_KILLER_H_
