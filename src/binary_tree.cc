@@ -28,7 +28,7 @@ BinaryTree::~BinaryTree() {
     DestroyTree(root_);
 }
 
-void BinaryTree::DestroyTree(struct WordItem* current_word_item) {
+void BinaryTree::DestroyTree(WordItem* current_word_item) {
   if (current_word_item->left != NULL)
     DestroyTree(current_word_item->left);
   if (current_word_item->right != NULL)
@@ -37,12 +37,11 @@ void BinaryTree::DestroyTree(struct WordItem* current_word_item) {
 }
 
 void BinaryTree::AddWord(const std::string& word_to_add) {
-  struct WordItem* new_word_item = new struct WordItem;
-  new_word_item->word = word_to_add;
+  WordItem* new_word_item = new WordItem(word_to_add);
   if (root_ == NULL)
     root_ = new_word_item;
   else {
-    struct WordItem* current_word_item = root_;
+    WordItem* current_word_item = root_;
     while (true) {
       if (current_word_item->word == word_to_add) // avoids multiple additions of the same word (or rather: the same signifier)
         return;
@@ -83,7 +82,7 @@ bool BinaryTree::RemoveWord(const std::string& word_to_remove) {
       // "word_item_to_delete" or rather its information (at the position of
       // its former rightest item on its left).
     } else if (root_->right != NULL) { // if "root_" has no child on its left side, but on its right side
-      struct WordItem* previous_word_item = root_, *most_left_word_item_right_below_root = root_->right;
+      WordItem* previous_word_item = root_, *most_left_word_item_right_below_root = root_->right;
       int side;
       while (most_left_word_item_right_below_root->left != NULL || most_left_word_item_right_below_root->right != NULL) { // finds the most left item on the right below "root_"
         if (most_left_word_item_right_below_root->left != NULL) {
@@ -100,14 +99,14 @@ bool BinaryTree::RemoveWord(const std::string& word_to_remove) {
       (side == -1)? previous_word_item->left = NULL : previous_word_item->right = NULL;
       delete most_left_word_item_right_below_root;
     } else { // if "root_" has no children
-      struct WordItem* current_word_item = root_;
+      WordItem* current_word_item = root_;
       root_ = NULL;
       delete current_word_item;
     }
     return true;
   }
   // if "root_" is not the "word_item_to_delete"
-  struct WordItem* current_word_item = root_;
+  WordItem* current_word_item = root_;
   while (true) {
     if (word_to_remove.compare(current_word_item->word) < 0) {
       if (current_word_item->left == NULL) // if "word_to_remove" couldn't be found in the binary tree
@@ -129,7 +128,7 @@ bool BinaryTree::RemoveWord(const std::string& word_to_remove) {
   }
 }
 
-void BinaryTree::RemoveWordItem(struct WordItem* previous_word_item, struct WordItem* word_item_to_delete, const int side){
+void BinaryTree::RemoveWordItem(WordItem* previous_word_item, WordItem* word_item_to_delete, const int side){
 // If "side" == -1 -> "word_item_to_delete" is on the left of
 // "previous_word_item"; if "side" == 1 -> "word_item_to_delete" is on the
 // right of "previous_word_item".
@@ -151,12 +150,12 @@ void BinaryTree::RemoveWordItem(struct WordItem* previous_word_item, struct Word
     RemoveWordItemThatHasTwoChildren(word_item_to_delete);
 }
 
-void BinaryTree::RemoveWordItemThatHasTwoChildren(struct WordItem* word_item_to_delete) {
+void BinaryTree::RemoveWordItemThatHasTwoChildren(WordItem* word_item_to_delete) {
 // Finds the rightest item on the left below "word_item_to_delete" and swaps
 // the information of both items, then deletes "word_item_to_delete" or rather
 // its information (at the position of its former rightest item on its left)
 // and sets the pointer to it "NULL".
-  struct WordItem* previous_word_item = word_item_to_delete, *rightest_word_item_left_below = word_item_to_delete->left;
+  WordItem* previous_word_item = word_item_to_delete, *rightest_word_item_left_below = word_item_to_delete->left;
   while (rightest_word_item_left_below->right != NULL) {
     previous_word_item = rightest_word_item_left_below;
     rightest_word_item_left_below = rightest_word_item_left_below->right;
