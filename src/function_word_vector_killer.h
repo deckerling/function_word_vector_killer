@@ -53,13 +53,14 @@ class BinaryTree {
  private:
   struct WordItem {
     std::string word = "DEFAULT";
-    struct WordItem* left = NULL;
-    struct WordItem* right = NULL;
+    WordItem* left;
+    WordItem* right;
+    WordItem(std::string str) : word(str), left(NULL), right(NULL) {}
   };
-  struct WordItem* root_;
-  void DestroyTree(struct WordItem* current_word_item);
-  void RemoveWordItem(struct WordItem* previous_word_item, struct WordItem* word_item_to_delete, const int side);
-  void RemoveWordItemThatHasTwoChildren(struct WordItem* word_item_to_delete);
+  WordItem* root_;
+  void DestroyTree(WordItem* current_word_item);
+  void RemoveWordItem(WordItem* previous_word_item, WordItem* word_item_to_delete, const int side);
+  void RemoveWordItemThatHasTwoChildren(WordItem* word_item_to_delete);
 };
 
 #endif // FUNCTIONS_WORD_VECTOR_KILLER_H_SRC_FUNCTIONS_WORD_VECTOR_KILLER_H_
